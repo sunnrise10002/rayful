@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: zuul-api-gateway #name should be equal to bootstrap's one
+server:
+  port: ${port:8888}
+zuul:
+  prefix: /api
+  routes:
+    client:
+      path: /client/**
+      service-id: client-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8800/eureka/, http://localhost:8801/eureka/, http://localhost:8802/eureka/
+# Actuator exposes minimal endpoints as default (/info, /health)
+# it makes rest of endpoints be exposed via web 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+# turbine provide integrated hystrix monitor
+# each instance in app-config should have @EnableHystrix
+# turbine gather information from /hystrix.stream
+turbine:
+  app-config: client-service, client-service-2
+  cluster-name-expression: "'default'"        
+custom:
+  data:
+    value: Hello~
