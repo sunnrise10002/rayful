@@ -1,39 +1,11 @@
+server:
+  port: 8761 #포트번호 지정
+
 spring:
   application:
-    name: discovery-server #name should be equal to bootstrap's one
+    name: discovery-server # 서비스 ID
+
 eureka:
-  instance:
-    prefer-ip-address: true # if you don't have own your DNS servers, perfer-ip-address is useful.
-    instance-id: ${spring.application.name}-${spring.profiles.active}
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"        
----
-spring:
-  profiles: peer1
-server:
-  port: 8800  
-eureka:
-  instance:
-    metadata-map:
-      zone: zone1
----
-spring:
-  profiles: peer2
-server:
-  port: 8801
-eureka:
-  instance:
-    metadata-map:
-      zone: zone2
----
-spring:
-  profiles: peer3  
-server:
-  port: 8802
-eureka:
-  instance:
-    metadata-map:
-      zone: zone3
+  client:
+    register-with-eureka: false # default : true
+    fetch-registry: false # default : true
