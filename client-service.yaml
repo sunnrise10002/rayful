@@ -1,39 +1,14 @@
+# client-service implements discovery-first-bootstrap
+# it registers itself to eureka discovery and find configuration server among eureka instances
 spring:
   application:
-    name: client-service #name should be equal to bootstrap's one
+    name: client-service
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
 eureka:
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}-${spring.profiles.active}
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
----
-spring:
-  profiles: peer1
-eureka:
-  instance:
-    metadata-map:
-      zone: zone1
-server:
-  port: ${port:8811}
----
-spring:
-  profiles: peer2
-eureka:
-  instance:
-    metadata-map:
-      zone: zone2
-server:
-  port: ${port:8812}
----
-spring:
-  profiles: peer3
-eureka:
-  instance:
-    metadata-map:
-      zone: zone3
-server:
-  port: ${port:8813}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
