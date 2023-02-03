@@ -4,6 +4,7 @@ spring:
   port: 0 #random port
   config:
     import: optional:configserver:http://localhost:9000
+my-config.name: default
 eureka:
   instance:
     prefer-ip-address: true # if you don't have own your DNS servers, perfer-ip-address is useful.
