@@ -1,8 +1,10 @@
-# Spring Cloud Gateway port
-server:
-  port: 8080
 
 spring:
+  application:
+    name: client-gateway #name should be equal to bootstrap's one
+  port: 0 #random port
+  config:
+    import: optional:configserver:http://localhost:9000
   cloud:
     gateway:
       # Gateway 공통 필터
@@ -39,3 +41,13 @@ spring:
                 baseMessage: Taeu ShopFilter
                 preLogger: true
                 postLogger: true
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+
+
