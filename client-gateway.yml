@@ -32,7 +32,7 @@ spring:
                 preLogger: true
                 postLogger: true
         - id: client-service2
-          uri: http://localhost:8083
+          uri: http://192.168.0.82:client-service
           predicates:
             - Path=/shop/**
           filters:
