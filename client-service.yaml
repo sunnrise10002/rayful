@@ -2,11 +2,8 @@ spring:
   application:
     name: client-service #name should be equal to bootstrap's one
   port: 0 #random port
-  cloud:
-    config:
-      discovery:
-        enabled: true
-        service-id: config-server
+  config:
+    import: optional:configserver:http://localhost:9000
 eureka:
   instance:
     instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
