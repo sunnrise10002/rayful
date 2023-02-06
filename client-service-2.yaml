@@ -1,13 +1,20 @@
 spring:
   application:
-    name: client-service-2 #name should be equal to bootstrap's one
+    name: client-service #name should be equal to bootstrap's one
+  port: 0 #random port
+  config:
+    import: optional:configserver:http://localhost:9000
+my-config.name: default
 eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8800/eureka/,http://localhost:8801/eureka/,http://localhost:8802/eureka/    
   instance:
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}-${spring.profiles.active}
+    prefer-ip-address: true # if you don't have own your DNS servers, perfer-ip-address is useful.
+    instance-id: ${spring.application.name}-${spring.profiles.active}  
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      http://localhost:8800/eureka/,http://localhost:8801/eureka/,http://localhost:8802/eureka/
+
 management:
   endpoints:
     web:
