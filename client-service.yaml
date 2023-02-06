@@ -1,7 +1,7 @@
 spring:
   application:
     name: client-service #name should be equal to bootstrap's one
-  port: 0 #random port
+#  port: 0 #random port
   config:
     import: optional:configserver:http://localhost:9000
 my-config.name: default
