@@ -8,9 +8,42 @@ my-config.name: default
 eureka:
   instance:
     prefer-ip-address: true # if you don't have own your DNS servers, perfer-ip-address is useful.
-    instance-id: ${spring.application.name}  
+    instance-id: ${spring.application.name}-${spring.profiles.active}  
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
+      http://localhost:8800/eureka/,http://localhost:8801/eureka/,http://localhost:8802/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"    
+---
+spring:
+  profiles: peer1
+eureka:
+  instance:
+    metadata-map:
+      zone: zone1
+server:
+  port: ${port:8821}
+---
+spring:
+  profiles: peer2
+eureka:
+  instance:
+    metadata-map:
+      zone: zone2
+server:
+  port: ${port:8822}
+---
+spring:
+  profiles: peer3
+eureka:
+  instance:
+    metadata-map:
+      zone: zone3
+server:
+  port: ${port:8823}
